@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+<!-- 
+ .container>.row>(.col-md-6>h1{Show article})+(.col-md-6.text-end>a.btn.btn-link{Back to list}) -->
+
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <h1>Show article</h1>
+    </div>
+
+    <div class="col-md-6 text-end">
+      <a href="{% url 'list_of_articles' %}" class="btn btn-link"
+        >Back to list</a
+      >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <span class="badge bg-primary my-3">{{ article.category.name }}</span>
+      <h2 class="my-4">{{ article.title }}</h2>
+      <p class="my-4">{{ article.description }}</p>
+      <hr />
+      <ul>
+        {% for tag in article.tags.all %}
+        <li>{{ tag.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

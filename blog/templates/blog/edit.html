@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block content %}
+<!-- 
+ .container>.row>(.col-md-6>h1{Show article})+(.col-md-6.text-end>a.btn.btn-link{Back to list}) -->
+
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-6">
+      <h1>Edit article</h1>
+    </div>
+
+    <div class="col-md-6 text-end">
+      <a href="{% url 'list_of_articles' %}" class="btn btn-link"
+        >Back to list</a
+      >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <form action="" method="POST">
+        {% csrf_token %} {% for champ in form %}
+        <div class="form-group my-3">
+          <label for="" class="form-label">{{ champ.label }} </label>
+          {{ champ }}
+        </div>
+        {% endfor %}
+
+        <div class="d-grid mt-3">
+          <button class="btn btn-danger" type="submit">
+            <i class="bi bi-pencil-fill"></i> Update article
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
