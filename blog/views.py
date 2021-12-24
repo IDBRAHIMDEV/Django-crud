@@ -1,18 +1,28 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
-from .models import Article
+from django.http.response import Http404
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import Article, Category
 from .forms import ArticleForm
 
 # Create your views here.
 def index(request):
 
     articles = Article.objects.filter(state=1)
-    return render(request, "blog/index.html", {"articles": articles})
+    categories = Category.objects.filter(state=1)
+    return render(
+        request, "blog/index.html", {"articles": articles, "categories": categories}
+    )
 
 
-def show(request, id):
+def show(request, slug):
 
-    article = Article.objects.get(pk=id)
+    # try:
+    #     article = Article.objects.get(slug=slug)
+    # except:
+    #     raise Http404()
+
+    article = get_object_or_404(Article, slug=slug)
+
     return render(request, "blog/show.html", {"article": article})
 
 

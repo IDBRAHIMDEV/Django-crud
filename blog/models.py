@@ -1,5 +1,12 @@
 from django.db import models
-from django.db.models.fields import CharField, DateTimeField, IntegerField, TextField
+from django.utils.text import slugify
+from django.db.models.fields import (
+    CharField,
+    DateTimeField,
+    IntegerField,
+    SlugField,
+    TextField,
+)
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 
 
@@ -10,14 +17,23 @@ class Article(models.Model):
 
     state = IntegerField(default=0, choices=LIST_STATE)
     title = CharField(max_length=120, blank=True, null=True, unique=True)
+    slug = SlugField(max_length=120, unique=True, db_index=True, null=True, blank=True)
     description = TextField(null=True)
     category = ForeignKey("Category", null=True, on_delete=models.SET_NULL)
     tags = ManyToManyField("Tag")
+    picture = models.ImageField(null=True, upload_to="articles/")
     created = DateTimeField(auto_now_add=True)
     updated = DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        super().save(*args, **kwargs)
 
 
 class Category(models.Model):

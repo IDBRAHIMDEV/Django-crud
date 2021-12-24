@@ -1,62 +1,67 @@
-{% extends 'base.html' %} {% block content %}
-
-<!-- .container>(.row>.col-md-12>h1{List of articles})+(.row>.col-md-12>table.table>(thead>tr>(th*3))+(tbody>tr>td*3)) -->
-<div class="container">
-  <div class="row mt-3">
-    <div class="col-md-6">
-      <h1>List of articles</h1>
-    </div>
-    <div class="col-md-6 text-end">
-      <a href="{% url 'create_article' %}" class="btn btn-link">New article</a>
-    </div>
+{% extends 'base.html' %} {% block content %} {% for article in articles %}
+<!-- post -->
+<div class="post post-xl">
+  <!-- top section -->
+  <div class="post-top">
+    <ul class="meta list-inline mb-0">
+      <li class="list-inline-item">
+        <a href="#"
+          ><img
+            src="images/other/author-sm.png"
+            class="author"
+            alt="author"
+          />Katen Doe</a
+        >
+      </li>
+      <li class="list-inline-item">{{ article.created }}</li>
+      <li class="list-inline-item"><i class="icon-bubble"></i> (0)</li>
+    </ul>
+    <h5 class="post-title mb-0 mt-4">
+      <a href="{% url 'show_article' article.slug %}">{{ article.title }}</a>
+    </h5>
   </div>
+  <!-- thumbnail -->
+  <div class="thumb rounded">
+    <a href="category.html" class="category-badge lg position-absolute"
+      >{{ article.category.name }}</a
+    >
+    <span class="post-format">
+      <i class="icon-picture"></i>
+    </span>
+    <a href="blog-single.html">
+      <div class="inner">
+        <img src="{{ article.picture.url }}" alt="post-title" />
+      </div>
+    </a>
+  </div>
+  <!-- details -->
+  <div class="details">
+    <p class="excerpt mb-0">{{ article.description }}</p>
+  </div>
+  <div class="post-bottom clearfix d-flex align-items-center">
+    <div class="social-share me-auto">
+      <button class="toggle-button icon-share"></button>
+      <ul class="icons list-unstyled list-inline mb-0">
 
-  <div class="row my-3">
-    <div class="col-md-12">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Tags</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for article in articles %}
-          <tr>
-            <td>{{ article.id }}</td>
-            <td>{{ article.title }}</td>
-            <td>{{ article.description }}</td>
-            <td nowrap> <strong> {{ article.category.name }}</strong></td>
-            <td>
-          
-               <ul>
-                  {% for tag in article.tags.all %}
-                    <li>{{ tag.name }}</li> 
-                  {% endfor %}
-                </ul>
-            </td>
-            <td class="text-end">
-              <a
-                href="{% url 'show_article' article.id %}"
-                class="btn btn-warning"
-                >Show</a
-              >
-
-              <a
-              href="{% url 'edit_article' article.id %}"
-              class="btn btn-danger"
-              >Edit</a
-            >
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+        {% for tag in article.tags.all %}
+          <li class="list-inline-item">
+            <a href="#" class="category-badge sm">{{ tag.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="float-end d-none d-md-block">
+      <a href="{% url 'show_article' article.slug %}" class="more-link"
+        >Read more<i class="icon-arrow-right"></i
+      ></a>
+    </div>
+    <div class="more-button d-block d-md-none float-end">
+      <a href="blog-single.html"><span class="icon-options"></span></a>
     </div>
   </div>
 </div>
+{% endfor %}
+
+<!--
 
 {% endblock %}
