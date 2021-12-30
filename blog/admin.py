@@ -7,6 +7,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ("title", "slug", "state", "category", "created")
     list_filter = ("state", "category")
     prepopulated_fields = {"slug": ("title",)}
+    list_per_page = 4
 
 
 admin.site.register(Article, ArticleAdmin)

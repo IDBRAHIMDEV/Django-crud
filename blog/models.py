@@ -7,6 +7,8 @@ from django.db.models.fields import (
     SlugField,
     TextField,
 )
+from django.urls import reverse
+
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 
 
@@ -35,8 +37,13 @@ class Article(models.Model):
 
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("show_article", kwargs={"slug": self.slug})
+
 
 class Category(models.Model):
+    class Meta:
+        verbose_name = "Categorie"
 
     name = CharField(max_length=20)
     state = IntegerField(default=0, choices=LIST_STATE)
