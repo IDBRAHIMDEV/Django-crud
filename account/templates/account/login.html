@@ -1,0 +1,51 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+
+<div class="text-center">
+    <h1 class="my-5">{{ page }}</h1>
+</div>
+
+{% if page == 'Register' %}
+<form action="" method="POST">
+  {% csrf_token %}
+  
+  {% for field in form %}
+
+     <div class="form-group">
+         <label for="" class="form-label">{{ field.label }}</label> 
+            {{ field }}
+            {% if field.errors %}
+                <div class="alert alert-danger">
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}.
+                </div>
+            {% endif %}
+     </div>
+
+  {% endfor %}
+  <div class="d-grid">
+      <button class="btn btn-danger">Register</button>
+  </div>
+</form>
+<p class="my-2"> Already you have the account ? <a href="{% url 'login' %}">Login</a> </p>
+{% else %}
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group my-3">
+        <label for="username" class="form-label">username</label>
+        <input type="text" name="username" id="username" class="form-control">
+    </div>
+    <div class="form-group my-3">
+        <label for="password" class="form-label">password</label>
+        <input type="password" name="password" id="password" class="form-control">
+    </div>
+    <div class="d-grid">
+        <button class="btn btn-primary mt-2">Login</button>
+    </div>
+</form>
+<p class="my-2"> You haven't the account ? please <a href="{% url 'register' %}">Sign Up</a> </p>
+{% endif %}
+{% endblock %}

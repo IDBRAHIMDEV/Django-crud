@@ -4,13 +4,18 @@ from django.shortcuts import get_object_or_404, redirect, render
 from .models import Article, Category
 from .forms import ArticleForm
 
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
+
+
 def index(request):
 
     articles = Article.objects.filter(state=1)
     categories = Category.objects.filter(state=1)
     return render(
-        request, "blog/index.html", {"articles": articles, "categories": categories}
+        request, "blog/index.html", {"articles": articles,
+                                     "categories": categories}
     )
 
 
@@ -26,6 +31,7 @@ def show(request, slug):
     return render(request, "blog/show.html", {"article": article})
 
 
+@login_required(login_url="login")
 def create(request):
 
     form = ArticleForm

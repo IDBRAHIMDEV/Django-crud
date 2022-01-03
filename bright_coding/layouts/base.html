@@ -118,18 +118,19 @@
       <!-- section main content -->
       <section class="main-content-lg">
         <div class="container-minimal">
-          {% block content %}{% endblock %}
-
-          <!-- pagination -->
-          <nav>
-            <ul class="pagination justify-content-center">
-              <li class="page-item active" aria-current="page">
-                <span class="page-link">1</span>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
+          
+          {% if messages %}
+          <div class="my-3">
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
             </ul>
-          </nav>
+          </div>
+          {% endif %}
+
+          {% block content %}{% endblock %}
+        
         </div>
       </section>
 
@@ -229,6 +230,12 @@
             </ul>
           </li>
           <li><a href="contact.html">Contact</a></li>
+          {% if request.user.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li><a href="{% url 'register' %}">Register</a></li>
+          {% endif %}
         </ul>
       </nav>
 
