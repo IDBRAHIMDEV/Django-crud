@@ -10,11 +10,13 @@
             
            <div class="form-group">
             <h1 class="my-4">Search for a projects</h1>
-               <input type="text" class="form-control" placeholder="Project name">
-                <button class="mt-3 btn btn-danger">
-                    <i class="icon-magnifier"></i> Search
-                </button>
-           </div>
+            <form action="" method="GET">
+                <input name="search" value="{{ keyword }}" type="text" class="form-control" placeholder="Project name">
+                    <button class="mt-3 btn btn-danger">
+                        <i class="icon-magnifier"></i> Search
+                    </button>
+               </div>
+            </form>      
         </div>
     </div>
 </section>
@@ -72,5 +74,25 @@
         </div>
     {% endfor %}
 </div>
+
+<nav>
+    <ul class="pagination justify-content-center">
+
+        {% if projects.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ projects.previous_page_number }}">&laquo; prev</a></li>
+        {% endif %}
+
+       {% for page in paginator.page_range %}
+        <li class="page-item"><a class="page-link" href="?page={{page}}">{{ page }}</a></li>
+       {% endfor %}
+
+       {% if projects.has_next %}
+       <li class="page-item">
+           <a class="page-link" href="?page={{ projects.next_page_number }}">Next &raquo;</a></li>
+       {% endif %}
+    </ul>
+</nav>
+
 
 {% endblock %}
