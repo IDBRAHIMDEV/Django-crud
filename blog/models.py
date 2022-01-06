@@ -9,6 +9,8 @@ from django.db.models.fields import (
 )
 from django.urls import reverse
 
+from account.models import Profile
+
 from django.db.models.fields.related import ForeignKey, ManyToManyField
 
 
@@ -17,6 +19,7 @@ LIST_STATE = ((0, "disable"), (1, "enable"))
 # Create your models here.
 class Article(models.Model):
 
+    profile = ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True)
     state = IntegerField(default=0, choices=LIST_STATE)
     title = CharField(max_length=120, blank=True, null=True, unique=True)
     slug = SlugField(max_length=120, unique=True, db_index=True, null=True, blank=True)

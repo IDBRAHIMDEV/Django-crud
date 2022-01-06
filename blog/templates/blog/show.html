@@ -22,7 +22,15 @@
         <h1 class="title mt-0 mb-3">{{ article.title }}</h1>
         <ul class="meta list-inline mb-0">
           <li class="list-inline-item">
-            <a href="#"><img src="" class="author" alt="author" />Katen Doe</a>
+            <a href="#"
+            ><img
+              width="50px"
+              height="auto"
+              src="{{ article.profile.image.url }}"
+              class="author img-fluid img-rounded"
+              alt="author"
+            />{{ article.profile.name }}</a
+          >
           </li>
           <li class="list-inline-item">
             <a href="#">{{ article.category.name }}</a>

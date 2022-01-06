@@ -7,10 +7,12 @@
       <li class="list-inline-item">
         <a href="#"
           ><img
-            src="images/other/author-sm.png"
-            class="author"
+            width="50px"
+            height="auto"
+            src="{{ article.profile.image.url }}"
+            class="author img-fluid img-rounded"
             alt="author"
-          />Katen Doe</a
+          />{{ article.profile.name }}</a
         >
       </li>
       <li class="list-inline-item">{{ article.created }}</li>

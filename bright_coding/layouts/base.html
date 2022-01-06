@@ -101,8 +101,8 @@
 
             <div class="col-4 text-center">
               <!-- site logo -->
-              <a class="navbar-brand" href="minimal.html"
-                ><img src="images/logo.svg" alt="logo"
+              <a class="navbar-brand" href="{% url 'list_of_articles' %}"
+                ><img src="{% static 'images/logo.png' %}" alt="logo"
               /></a>
             </div>
 
@@ -115,9 +115,12 @@
         </header>
       </div>
 
+
+      {% block header %}{% endblock %}
+
       <!-- section main content -->
       <section class="main-content-lg">
-        <div class="container-minimal">
+        <div class="container">
           
           {% if messages %}
           <div class="my-3">
