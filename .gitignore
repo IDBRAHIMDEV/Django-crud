@@ -1,0 +1,4 @@
+.vscode/
+env/
+bright_coding/.env
+db.sqlite3
