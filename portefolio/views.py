@@ -8,7 +8,7 @@ def index(request):
 
     projects, keyword = search_projects(request)
 
-    item_per_page = 4
+    item_per_page = 6
     page = request.GET.get("page")
     paginator = Paginator(projects, item_per_page)
 

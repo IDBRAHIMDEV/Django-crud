@@ -18,13 +18,22 @@
   <div class="row">
     <div class="col-md-12">
       
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {% for champ in form %}
             <div class="form-group my-3">
                <label for="" class="form-label">{{ champ.label }} </label> 
                 {{ champ }}
               </div>
+                {% if champ.errors %}
+                  <div class="alert">
+                    <ul>
+                      {% for error in champ.errors %}
+                        <li>{{ error }}</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
             {% endfor %}
       
             <div class="d-grid mt-3">
