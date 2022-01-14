@@ -25,6 +25,7 @@ urlpatterns = [
     path("articles/", include("blog.urls")),
     path("", include("portefolio.urls")),
     path("", include("account.urls")),
+    path("api/", include("api.urls")),
 ]
 
 
